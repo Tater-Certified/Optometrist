@@ -31,8 +31,15 @@ public abstract class GameRuleRegistrationMixin {
                     target =
                             "Lnet/minecraft/world/level/gamerules/GameRules;FIRE_SPREAD_RADIUS_AROUND_PLAYER:Lnet/minecraft/world/level/gamerules/GameRule;",
                     opcode = Opcodes.PUTSTATIC))
-    private static void nodim$registerGameRules(CallbackInfo ci) {
-        int vd = Optometrist.GLOBAL_MC_SERVER.getPlayerList().getViewDistance();
+    private static void optometrist$registerGameRules(CallbackInfo ci) {
+        int vd;
+        if (Optometrist.GLOBAL_MC_SERVER == null) {
+            // Probably launching a client
+            vd = 32;
+        } else {
+            vd = Optometrist.GLOBAL_MC_SERVER.getPlayerList().getViewDistance();
+        }
+
         Optometrist.DEFAULT_VIEW_DISTANCE = registerInteger("default_view_distance", GameRuleCategory.PLAYER, vd, 2, vd);
     }
 }
