@@ -10,6 +10,7 @@ import java.util.Collection;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -27,6 +28,7 @@ public class OptometristCommand {
             if (!players.isEmpty()) {
                 int distance = IntegerArgumentType.getInteger(c, "distance");
                 players.forEach(player -> setViewDistance(distance, player));
+                c.getSource().sendSuccess(() -> Component.literal("Set view distance to " + distance + " for target(s)"), true);
             }
 
             return players.size();
