@@ -1,0 +1,19 @@
+{
+  "compatibilityLevel": "JAVA_16",
+  "required": false,
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "package": "com.github.tatercertified.optometrist.mixin",
+  "mixins": [
+    "ChunkMapMixin",
+    "CommandRegister",
+    "GameRuleRegistrationMixin",
+    "MinecraftServerMixin",
+    "ServerChunkCacheMixin",
+    "ServerPlayerMixin"
+  ],
+  "client": [],
+  "server": []
+}

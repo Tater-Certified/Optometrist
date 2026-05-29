@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "${author}"
+  ],
+  "contact": {
+    "repo": "${source_url}"
+  },
+  "license": "${license}",
+  "icon": "${mod_name}.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "optometrist.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=${min_minecraft_version}"
+  }
+}
