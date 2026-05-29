@@ -15,7 +15,14 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class OptometristCommand {
     public static void register(final CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("vd").requires(Commands.hasPermission(Commands.LEVEL_ADMINS)).then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("distance", IntegerArgumentType.integer(2, Optometrist.GLOBAL_MC_SERVER.getPlayerList().getViewDistance())).executes((c) -> {
+        int max;
+        if (Optometrist.GLOBAL_MC_SERVER == null) {
+            // Probably on a client
+            max = 32;
+        } else {
+            max = Optometrist.GLOBAL_MC_SERVER.getPlayerList().getViewDistance();
+        }
+        dispatcher.register(Commands.literal("vd").requires(Commands.hasPermission(Commands.LEVEL_ADMINS)).then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("distance", IntegerArgumentType.integer(2, max)).executes((c) -> {
             Collection<ServerPlayer> players = EntityArgument.getPlayers(c, "targets");
             if (!players.isEmpty()) {
                 int distance = IntegerArgumentType.getInteger(c, "distance");
