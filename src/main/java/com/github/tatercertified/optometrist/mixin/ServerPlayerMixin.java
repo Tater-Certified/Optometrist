@@ -25,13 +25,13 @@ public class ServerPlayerMixin implements VariableViewDistance {
     private int viewDistance;
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void optometrist$loadViewDistance(ValueInput input, CallbackInfo ci) {
-        this.viewDistance = input.getIntOr("view_distance", this.server.getGameRules().get(Optometrist.DEFAULT_VIEW_DISTANCE));
+    private void optometrist$loadViewDistance(ValueInput valueInput, CallbackInfo ci) {
+        this.viewDistance = valueInput.getIntOr("view_distance", this.server.overworld().getGameRules().get(Optometrist.DEFAULT_VIEW_DISTANCE));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void optometrist$saveViewDistance(ValueOutput output, CallbackInfo ci) {
-        output.putInt("view_distance", this.viewDistance);
+    private void optometrist$saveViewDistance(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("view_distance", this.viewDistance);
     }
 
     @Override

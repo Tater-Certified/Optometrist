@@ -23,7 +23,7 @@ public class CommandRegister {
     private CommandDispatcher<CommandSourceStack> dispatcher;
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void optometrist$registerCommand(Commands.CommandSelection commandSelection, CommandBuildContext context, CallbackInfo ci) {
+    private void optometrist$registerCommand(Commands.CommandSelection selection, CommandBuildContext context, CallbackInfo ci) {
         OptometristCommand.register(this.dispatcher);
     }
 }

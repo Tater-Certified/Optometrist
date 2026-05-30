@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRuleRegistrationMixin {
 
     @Shadow
-    private static GameRule<Integer> registerInteger(String id, GameRuleCategory category, int defaultValue, int min, int max) {
+    private static GameRule<Integer> registerInteger(String id, GameRuleCategory category, int defaultValue, int minValue, int maxValue) {
         throw new UnsupportedOperationException("Implemented via mixin");
     }
 
