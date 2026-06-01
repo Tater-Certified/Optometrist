@@ -6,5 +6,6 @@ package com.github.tatercertified.optometrist;
 
 public interface VariableViewDistance {
     int getViewDistance();
+
     void setViewDistance(int viewDistance);
 }

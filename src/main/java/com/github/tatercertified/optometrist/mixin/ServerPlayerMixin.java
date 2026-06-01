@@ -6,10 +6,12 @@ package com.github.tatercertified.optometrist.mixin;
 
 import com.github.tatercertified.optometrist.Optometrist;
 import com.github.tatercertified.optometrist.VariableViewDistance;
+
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,14 +21,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin implements VariableViewDistance {
-    @Shadow
-    @Final
-    private MinecraftServer server;
+    @Shadow @Final private MinecraftServer server;
     private int viewDistance;
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void optometrist$loadViewDistance(ValueInput valueInput, CallbackInfo ci) {
-        this.viewDistance = valueInput.getIntOr("view_distance", this.server.overworld().getGameRules().get(Optometrist.DEFAULT_VIEW_DISTANCE));
+        this.viewDistance =
+                valueInput.getIntOr(
+                        "view_distance",
+                        this.server
+                                .overworld()
+                                .getGameRules()
+                                .get(Optometrist.DEFAULT_VIEW_DISTANCE));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

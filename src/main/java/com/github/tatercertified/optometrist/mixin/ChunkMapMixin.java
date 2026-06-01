@@ -6,8 +6,10 @@ package com.github.tatercertified.optometrist.mixin;
 
 import com.github.tatercertified.optometrist.VariablePlayerChunkCache;
 import com.github.tatercertified.optometrist.VariableViewDistance;
+
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerPlayer;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +20,13 @@ public abstract class ChunkMapMixin implements VariablePlayerChunkCache {
     @Shadow
     protected abstract void updateChunkTracking(ServerPlayer player);
 
-    @Redirect(method = "getPlayerViewDistance", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;requestedViewDistance()I"))
+    @Redirect(
+            method = "getPlayerViewDistance",
+            at =
+                    @At(
+                            value = "INVOKE",
+                            target =
+                                    "Lnet/minecraft/server/level/ServerPlayer;requestedViewDistance()I"))
     private int optometrist$overridePlayerViewDistance(ServerPlayer instance) {
         return ((VariableViewDistance) instance).getViewDistance();
     }
