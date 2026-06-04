@@ -12,7 +12,9 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 
 public class OptometristCommand {
     public static void register(final CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -23,7 +25,14 @@ public class OptometristCommand {
         } else {
             max = Optometrist.GLOBAL_MC_SERVER.getPlayerList().getViewDistance();
         }
-        dispatcher.register(Commands.literal("vd").requires(Commands.hasPermission(Commands.LEVEL_ADMINS)).then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("distance", IntegerArgumentType.integer(2, max)).executes((c) -> {
+        dispatcher.register(Commands.literal("vd").requires(commandSourceStack -> {
+            final MinecraftServer minecraftServer = commandSourceStack.getServer();
+            if (minecraftServer != null && minecraftServer.isSingleplayer()) {
+                return true;
+            }
+
+            return commandSourceStack.permissions().hasPermission(Permissions.COMMANDS_ADMIN);
+        }).then(Commands.argument("targets", EntityArgument.players()).then(Commands.argument("distance", IntegerArgumentType.integer(2, max)).executes((c) -> {
             Collection<ServerPlayer> players = EntityArgument.getPlayers(c, "targets");
             if (!players.isEmpty()) {
                 int distance = IntegerArgumentType.getInteger(c, "distance");
