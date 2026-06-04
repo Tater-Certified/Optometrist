@@ -12,7 +12,9 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetChunkCacheRadiusPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 
 import java.util.Collection;
 
@@ -27,7 +29,14 @@ public class OptometristCommand {
         }
         dispatcher.register(
                 Commands.literal("vd")
-                        .requires(Commands.hasPermission(Commands.LEVEL_ADMINS))
+                        .requires(commandSourceStack -> {
+                            final MinecraftServer minecraftServer = commandSourceStack.getServer();
+                            if (minecraftServer != null && minecraftServer.isSingleplayer()) {
+                                return true;
+                            }
+
+                            return commandSourceStack.permissions().hasPermission(Permissions.COMMANDS_ADMIN);
+                        })
                         .then(
                                 Commands.argument("targets", EntityArgument.players())
                                         .then(
