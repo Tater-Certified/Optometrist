@@ -115,7 +115,7 @@ tasks.register<ShadowJar>("relocateFabricJar") {
     dependsOn("remapFabricJar")
     from(zipTree(tasks.getByName<RemapJarTask>("remapFabricJar").asJar.archiveFile.get().asFile))
     archiveClassifier.set("fabric-relocated")
-    relocate("com.github.tatercertified.vanilla", "com.github.tatercertified.y_intmdry")
+    relocate("com.github.tatercertified.optometrist", "com.github.tatercertified.y_intmdry")
 }
 
 unimined.minecraft(forge) {

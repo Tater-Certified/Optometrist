@@ -18,7 +18,7 @@
     "server": []
   },
   "mixins": [
-    "optometrist.mixins.json"
+    "optometrist-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",

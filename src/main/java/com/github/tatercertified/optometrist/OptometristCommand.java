@@ -29,14 +29,19 @@ public class OptometristCommand {
         }
         dispatcher.register(
                 Commands.literal("vd")
-                        .requires(commandSourceStack -> {
-                            final MinecraftServer minecraftServer = commandSourceStack.getServer();
-                            if (minecraftServer != null && minecraftServer.isSingleplayer()) {
-                                return true;
-                            }
+                        .requires(
+                                commandSourceStack -> {
+                                    final MinecraftServer minecraftServer =
+                                            commandSourceStack.getServer();
+                                    if (minecraftServer != null
+                                            && minecraftServer.isSingleplayer()) {
+                                        return true;
+                                    }
 
-                            return commandSourceStack.permissions().hasPermission(Permissions.COMMANDS_ADMIN);
-                        })
+                                    return commandSourceStack
+                                            .permissions()
+                                            .hasPermission(Permissions.COMMANDS_ADMIN);
+                                })
                         .then(
                                 Commands.argument("targets", EntityArgument.players())
                                         .then(
