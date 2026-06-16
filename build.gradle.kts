@@ -126,9 +126,6 @@ dependencies {
     mainCompileOnly(libs.asm)
     mainCompileOnly(libs.annotations)
     mainCompileOnly(libs.mixin)
-    paperCompileOnly("io.papermc.paper:paper-api:$paperVersion")
-    paperCompileOnly(libs.ignite.api)
-    spongeCompileOnly("org.spongepowered:spongeapi:$spongeVersion")
 }
 
 tasks.withType<ProcessResources> {
